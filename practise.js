@@ -188,70 +188,101 @@
 // Cons of hashtables=> collisions => slows down ability to access or insert => collisions slow down r&w by O(n/k)=> O(n)
 // Map, set 
 
-class HashTable {
-    constructor(size) {
-        this.data = new Array(size);
+// class HashTable {
+//     constructor(size) {
+//         this.data = new Array(size);
 
-    }
+//     }
 
-    _hash(key) {  //_sth is a private key, can't be accessed outside the class
-        let hash = 0
-        for (let i = 0; i < key.length; i++) {
-            hash = (hash + key.charCodeAt(i) * i) %
-                this.data.length
-        }
-        return hash
-    }
+//     _hash(key) {  //_sth is a private key, can't be accessed outside the class
+//         let hash = 0
+//         for (let i = 0; i < key.length; i++) {
+//             hash = (hash + key.charCodeAt(i) * i) %
+//                 this.data.length
+//         }
+//         return hash
+//     }
     
-    set(key, value) {
-        let address = this._hash(key)
-        if (!this.data[address]) {
-            this.data[address] = []
+//     set(key, value) {
+//         let address = this._hash(key)
+//         if (!this.data[address]) {
+//             this.data[address] = []
           
-        }
-        this.data[address].push([key, value])
-        console.log(this.data)
+//         }
+//         this.data[address].push([key, value])
+//         console.log(this.data)
       
-    }
+//     }
 
-    get(key) {
-        let address = this._hash(key)
-        const currentBucket = this.data[address];
-        if (currentBucket) {
-            for (let i = 0; i < currentBucket.length; i++) {
-                if (currentBucket[i][0] === key) {
-                    console.log(currentBucket[i][1])
-                }
-            }
-        }
-        return undefined
-    }
+//     get(key) {
+//         let address = this._hash(key)
+//         const currentBucket = this.data[address];
+//         if (currentBucket) {
+//             for (let i = 0; i < currentBucket.length; i++) {
+//                 if (currentBucket[i][0] === key) {
+//                     console.log(currentBucket[i][1])
+//                 }
+//             }
+//         }
+//         return undefined
+//     }
 
-    keys() {
-        const keysArray = [];
-        for (let i = 0; i < this.data.length; i++) {
-            if (this.data[i]) {
-                keysArray.push(this.data[i][0][0])
-            }
+//     keys() {
+//         const keysArray = [];
+//         for (let i = 0; i < this.data.length; i++) {
+//             if (this.data[i]) {
+//                 keysArray.push(this.data[i][0][0])
+//             }
             
-        } console.log(keysArray)
-    }
+//         } console.log(keysArray)
+//     }
     
-    values() {
-        const valuesArray = [];
-        for (let i = 0; i < this.data.length; i++) {
-            if(this.data[i]){
-                valuesArray.push(this.data[i][0][1])
-            }
+//     values() {
+//         const valuesArray = [];
+//         for (let i = 0; i < this.data.length; i++) {
+//             if(this.data[i]){
+//                 valuesArray.push(this.data[i][0][1])
+//             }
+//         }
+//         console.log(valuesArray)
+//     }
+// }
+
+// const myHashTable = new HashTable(30);
+// myHashTable.set("grapes", 1000);
+// myHashTable.set("apples", 3000);
+// myHashTable.set("oranges", 2);
+// myHashTable.keys()
+// myHashTable.values()
+
+// Google question for finding the first recurring item in an array
+
+// function firstRecurringChar(input) {
+//     for (let i = 0; i < input.length; i++){
+//         for (let j = i + 1; j < input.length; j++) {
+//             if (input[i] === input[j]) {
+
+//                 console.log(input[i])
+//             }
+//         }
+//     }
+//     return undefined
+// } // (O(n^2))
+// O(1) space complexity
+
+// firstRecurringChar([2,4,1,2,4,5,7])
+
+function firstRecurringChar(input) {
+    let map = {}; // O(n)
+    for (let i = 0; i < input.length; i++){
+        
+        if (map[input[i]] !== undefined) {
+            return input[i]
+        } else {
+            map[input[i]]=i
         }
-        console.log(valuesArray)
+        console.log(map)
     }
+    return undefined
 }
-
-const myHashTable = new HashTable(30);
-myHashTable.set("grapes", 1000);
-myHashTable.set("apples", 3000);
-myHashTable.set("oranges", 2);
-myHashTable.keys()
-myHashTable.values()
-
+firstRecurringChar([2,3,4,7,2,4])
